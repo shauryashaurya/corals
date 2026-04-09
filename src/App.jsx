@@ -317,7 +317,8 @@ void main() {
 }
 `;
 
-const PALETTE_ID_MAP = { classic: 0, fire: 1, ocean: 2, grayscale: 3, rainbow: 4, electric: 5, twilight: 6, monochrome: 7 };
+// const PALETTE_ID_MAP = { classic: 0, fire: 1, ocean: 2, grayscale: 3, rainbow: 4, electric: 5, twilight: 6, monochrome: 7 };
+const PALETTE_ID_MAP = { classic: 0, fire: 1, ocean: 2, grayscale: 3, rainbow: 4, electric: 5, twilight: 6, monochrome: 7, lava: 8, neon_acid: 9, frozen: 10, vaporwave: 11, forest: 12, cosine_gradient: 13, inferno: 14, gold: 15, plasma: 16, zebra: 17, nebula: 18 };
 
 // Compile a shader, return null on failure
 const compileShader = (gl, type, src) => {
