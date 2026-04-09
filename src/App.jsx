@@ -436,6 +436,73 @@ const hslToRgb = (h, s, l) => {
   return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
 };
 
+// const palettes = {
+//   classic: {
+//     name: "Classic",
+//     fn: (t) => {
+//       if (t >= 1) return [0, 0, 0];
+//       const angle = t * 360 * 3;
+//       return hslToRgb(220 + angle, 85, 15 + t * 55);
+//     }
+//   },
+//   fire: {
+//     name: "Fire",
+//     fn: (t) => {
+//       if (t >= 1) return [0, 0, 0];
+//       const r = Math.min(255, Math.floor(t * 3 * 255));
+//       const g = Math.min(255, Math.floor(Math.max(0, t * 3 - 1) * 255));
+//       const b = Math.min(255, Math.floor(Math.max(0, t * 3 - 2) * 255));
+//       return [r, g, b];
+//     }
+//   },
+//   ocean: {
+//     name: "Ocean",
+//     fn: (t) => {
+//       if (t >= 1) return [0, 0, 0];
+//       return hslToRgb(200 + t * 60, 80, 10 + t * 50);
+//     }
+//   },
+//   grayscale: {
+//     name: "Grayscale",
+//     fn: (t) => {
+//       if (t >= 1) return [0, 0, 0];
+//       const v = Math.floor(t * 255);
+//       return [v, v, v];
+//     }
+//   },
+//   rainbow: {
+//     name: "Rainbow",
+//     fn: (t) => {
+//       if (t >= 1) return [0, 0, 0];
+//       return hslToRgb(t * 360, 90, 50);
+//     }
+//   },
+//   electric: {
+//     name: "Electric",
+//     fn: (t) => {
+//       if (t >= 1) return [0, 0, 0];
+//       const r = Math.floor(Math.sin(t * Math.PI * 2) * 127 + 128);
+//       const g = Math.floor(Math.sin(t * Math.PI * 2 + 2.094) * 127 + 128);
+//       const b = Math.floor(Math.sin(t * Math.PI * 2 + 4.189) * 127 + 128);
+//       return [r, g, b];
+//     }
+//   },
+//   twilight: {
+//     name: "Twilight",
+//     fn: (t) => {
+//       if (t >= 1) return [0, 0, 0];
+//       return hslToRgb(260 + t * 100, 70, 10 + t * 45);
+//     }
+//   },
+//   monochrome: {
+//     name: "Cyan Mono",
+//     fn: (t) => {
+//       if (t >= 1) return [0, 0, 0];
+//       return [0, Math.floor(t * 220), Math.floor(t * 255)];
+//     }
+//   }
+// };
+
 const palettes = {
   classic: {
     name: "Classic",
@@ -500,8 +567,113 @@ const palettes = {
       if (t >= 1) return [0, 0, 0];
       return [0, Math.floor(t * 220), Math.floor(t * 255)];
     }
+  },
+  lava: {
+    name: "Lava",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      const r = Math.min(255, Math.floor(t * 2.5 * 255));
+      const g = Math.min(255, Math.floor(Math.max(0, t * 2.0 - 0.75) * 255));
+      const b = Math.min(255, Math.floor(Math.max(0, t * 3.0 - 2.5) * 255));
+      return [r, g, b];
+    }
+  },
+  neon_acid: {
+    name: "Neon Acid",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      const r = Math.floor(Math.sin(t * Math.PI * 4 + 1.0) * 127 + 128);
+      const g = Math.floor(Math.sin(t * Math.PI * 4 + 3.0) * 127 + 128);
+      const b = Math.floor(Math.sin(t * Math.PI * 4 + 5.0) * 127 + 128);
+      return [r, g, b];
+    }
+  },
+  frozen: {
+    name: "Frozen",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      return hslToRgb(200 + t * 30, 60, 40 + t * 55);
+    }
+  },
+  vaporwave: {
+    name: "Vaporwave",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      const r = Math.floor((0.5 + 0.5 * Math.sin(t * Math.PI * 4 + 0.0)) * 255);
+      const g = Math.floor((0.2 + 0.3 * Math.sin(t * Math.PI * 4 + 2.5)) * 255);
+      const b = Math.floor((0.7 + 0.3 * Math.sin(t * Math.PI * 4 + 1.0)) * 255);
+      return [r, g, b];
+    }
+  },
+  forest: {
+    name: "Forest",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      return hslToRgb(90 + t * 50, 65, 8 + t * 45);
+    }
+  },
+  cosine_gradient: {
+    name: "Cosine Gradient",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      const TAU = Math.PI * 2;
+      const r = Math.floor((0.5 + 0.5 * Math.cos(TAU * (t + 0.00))) * 255);
+      const g = Math.floor((0.5 + 0.5 * Math.cos(TAU * (t + 0.33))) * 255);
+      const b = Math.floor((0.5 + 0.5 * Math.cos(TAU * (t + 0.67))) * 255);
+      return [r, g, b];
+    }
+  },
+  inferno: {
+    name: "Inferno",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      const r = Math.min(255, Math.floor((t * 1.5 + 0.1 * Math.sin(t * 12.0)) * 255));
+      const g = Math.max(0, Math.floor((t * t * 1.2 - 0.1) * 255));
+      const b = Math.max(0, Math.floor(Math.sin(t * Math.PI) * 0.8 * 255));
+      return [r, g, b];
+    }
+  },
+  gold: {
+    name: "Gold",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      const r = Math.min(255, Math.floor(t * 2.5 * 255));
+      const g = Math.min(255, Math.floor(t * t * 2.0 * 0.85 * 255));
+      const b = Math.min(255, Math.floor(Math.max(0, t * t * t * 3.0 - 0.2) * 0.3 * 255));
+      return [r, g, b];
+    }
+  },
+  plasma: {
+    name: "Plasma",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      const TAU = Math.PI * 2;
+      const r = Math.floor((0.5 + 0.5 * Math.cos(TAU * (1.0 * t + 0.80))) * 255);
+      const g = Math.floor((0.5 + 0.5 * Math.cos(TAU * (1.0 * t + 0.90))) * 255);
+      const b = Math.floor((0.5 + 0.5 * Math.cos(TAU * (0.5 * t + 0.30))) * 255);
+      return [r, g, b];
+    }
+  },
+  zebra: {
+    name: "Zebra",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      const bands = 20.0;
+      const v = (t * bands - Math.floor(t * bands)) >= 0.5 ? 255 : 0;
+      return [v, v, v];
+    }
+  },
+  nebula: {
+    name: "Nebula",
+    fn: (t) => {
+      if (t >= 1) return [0, 0, 0];
+      const TAU = Math.PI * 2;
+      const r = Math.floor((0.5 + 0.5 * Math.cos(TAU * (t * 0.8 + 0.5))) * 255);
+      const g = Math.floor((0.2 * t + 0.1) * 255);
+      const b = Math.floor((0.5 + 0.5 * Math.cos(TAU * (t * 0.6 + 0.0))) * 255);
+      return [r, g, b];
+    }
   }
-};
 
 // -- Notable Julia set presets --
 
