@@ -110,6 +110,8 @@ void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }`;
 //   }
 // }
 // `;
+// https://iquilezles.org/articles/palettes/ ?
+//
 
 const FRAG_SRC = `
 precision highp float;
@@ -139,6 +141,18 @@ vec3 hsl2rgb(float h, float s, float l) {
   return rgb + m;
 }
 
+// vec3 palette(float t, int pid) {
+//   if (t >= 1.0) return vec3(0.0);
+//   if (pid == 0) return hsl2rgb(220.0+t*360.0*3.0, 0.85, 0.15+t*0.55);
+//   if (pid == 1) return vec3(min(1.0,t*3.0), min(1.0,max(0.0,t*3.0-1.0)), min(1.0,max(0.0,t*3.0-2.0)));
+//   if (pid == 2) return hsl2rgb(200.0+t*60.0, 0.80, 0.10+t*0.50);
+//   if (pid == 3) return vec3(t);
+//   if (pid == 4) return hsl2rgb(t*360.0, 0.90, 0.50);
+//   if (pid == 5) return vec3(sin(t*6.2832)*0.5+0.5, sin(t*6.2832+2.094)*0.5+0.5, sin(t*6.2832+4.189)*0.5+0.5);
+//   if (pid == 6) return hsl2rgb(260.0+t*100.0, 0.70, 0.10+t*0.45);
+//   return vec3(0.0, t*0.863, t);
+// }
+
 vec3 palette(float t, int pid) {
   if (t >= 1.0) return vec3(0.0);
   if (pid == 0) return hsl2rgb(220.0+t*360.0*3.0, 0.85, 0.15+t*0.55);
@@ -148,7 +162,95 @@ vec3 palette(float t, int pid) {
   if (pid == 4) return hsl2rgb(t*360.0, 0.90, 0.50);
   if (pid == 5) return vec3(sin(t*6.2832)*0.5+0.5, sin(t*6.2832+2.094)*0.5+0.5, sin(t*6.2832+4.189)*0.5+0.5);
   if (pid == 6) return hsl2rgb(260.0+t*100.0, 0.70, 0.10+t*0.45);
-  return vec3(0.0, t*0.863, t);
+  else if (pid == 8) { // Lava
+    // Black - deep red - orange - bright yellow
+    return vec3(
+      min(1.0, t * 2.0),
+      min(1.0, max(0.0, t * 2.0 - 0.75)),
+      min(1.0, max(0.0, t * 3.0 - 2.5))
+    );
+  }
+
+  else if (pid == 9) { // Neon Acid
+    // Vibrant green-cyan-magenta cycling with high contrast
+    return vec3(
+      sin(t * 12.566 + 1.0) * 0.5 + 0.5,
+      sin(t * 12.566 + 3.0) * 0.5 + 0.5,
+      sin(t * 12.566 + 5.0) * 0.5 + 0.5
+    );
+  }
+
+  else if (pid == 10) { // Frozen / Ice
+    // White-blue cold palette
+    return hsl2rgb(200.0 + t * 30.0, 0.60, 0.40 + t * 0.55);
+  }
+
+  else if (pid == 11) { // Vaporwave
+    // Pink - cyan synthwave aesthetic
+    return vec3(
+      0.5 + 0.5 * sin(t * 6.2832 * 2.0 + 0.0),
+      0.2 + 0.3 * sin(t * 6.2832 * 2.0 + 2.5),
+      0.7 + 0.3 * sin(t * 6.2832 * 2.0 + 1.0)
+    );
+  }
+
+  else if (pid == 12) { // Forest
+    // Dark greens - warm golden browns
+    return hsl2rgb(90.0 + t * 50.0, 0.65, 0.08 + t * 0.45);
+  }
+
+  else if (pid == 13) { // Cosine Gradient (Iq-style)
+    // The famous Inigo Quilez cosine palette with custom parameters
+    // palette(t) = a + b * cos(2π(c*t + d))
+    vec3 a = vec3(0.5, 0.5, 0.5);
+    vec3 b = vec3(0.5, 0.5, 0.5);
+    vec3 c = vec3(1.0, 1.0, 1.0);
+    vec3 d = vec3(0.00, 0.33, 0.67);
+    return a + b * cos(6.2832 * (c * t + d));
+  }
+
+  else if (pid == 14) { // Inferno (approximation of matplotlib's inferno)
+    // Black - purple - red - orange - yellow
+    return vec3(
+      min(1.0, t * 1.5 + 0.1 * sin(t * 12.0)),
+      max(0.0, t * t * 1.2 - 0.1),
+      max(0.0, sin(t * 3.14159) * 0.8)
+    );
+  }
+
+  else if (pid == 15) { // Gold / Treasure
+    // Black - deep amber - bright gold - white
+    float r = min(1.0, t * 2.5);
+    float g = min(1.0, t * t * 2.0);
+    float b_ch = min(1.0, max(0.0, t * t * t * 3.0 - 0.2));
+    return vec3(r, g * 0.85, b_ch * 0.3);
+  }
+
+  else if (pid == 16) { // Plasma
+    // Vibrant purple-pink-orange inspired by matplotlib's plasma
+    vec3 a = vec3(0.5, 0.5, 0.5);
+    vec3 b = vec3(0.5, 0.5, 0.5);
+    vec3 c = vec3(1.0, 1.0, 0.5);
+    vec3 d = vec3(0.80, 0.90, 0.30);
+    return a + b * cos(6.2832 * (c * t + d));
+  }
+
+  else if (pid == 17) { // Zebra / Binary Bands
+    // Hard-edged black-and-white banding for structural analysis
+    float bands = 20.0;
+    float v = step(0.5, fract(t * bands));
+    return vec3(v);
+  }
+
+  else if (pid == 18) { // Nebula
+    // Deep space: black → purple → blue → pink → white
+    return vec3(
+      0.5 + 0.5 * cos(6.2832 * (t * 0.8 + 0.5)),
+      0.2 * t + 0.1,
+      0.5 + 0.5 * cos(6.2832 * (t * 0.6 + 0.0))
+    );
+  }
+  return vec3(0.0, t*0.863, t); // fallback
 }
 
 void main() {
