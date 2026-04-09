@@ -674,6 +674,7 @@ const palettes = {
       return [r, g, b];
     }
   }
+};
 
 // -- Notable Julia set presets --
 
