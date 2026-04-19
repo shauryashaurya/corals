@@ -1,6 +1,6 @@
 # CORALS  
   
-Exploring fractals in the browser with WebGPU
+Exploring fractals in the browser with WebGL
 
 
 <html>
@@ -12,7 +12,8 @@ Exploring fractals in the browser with WebGPU
 ---             
       
 Run offline with `npm run dev`            
-or check out the online version here: [https://shauryashaurya.github.io/corals/](https://shauryashaurya.github.io/corals/)           
+or check out the online version here: [https://shauryashaurya.github.io/corals/](https://shauryashaurya.github.io/corals/)    
+
 ---
             
 			   
